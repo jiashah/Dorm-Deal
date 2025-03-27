@@ -1,0 +1,78 @@
+[
+    {
+        "id": 1,
+        "name": "Octopus Plushie",
+        "price": {
+            "oldPrice": 160.00,
+            "newPrice": 108.00
+        },
+        "img": {
+            "singleImage": "img/products/product1/1.jpg",
+            "thumbs": [
+                "img/products/product1/1.jpg",
+                "img/products/product1/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "name": "HandPainted Bookmarks",
+        "price": {
+            "oldPrice": 265.00,
+            "newPrice": 208.00
+        },
+        "img": {
+            "singleImage": "img/products/product2/1.jpg",
+            "thumbs": [
+                "img/products/product2/1.jpg",
+                "img/products/product2/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "name": "Beaded Bracelet",
+        "price": {
+            "oldPrice": 105.00,
+            "newPrice": 67.00
+        },
+        "img": {
+            "singleImage": "img/products/product3/1.jpg",
+            "thumbs": [
+                "img/products/product3/1.jpg",
+                "img/products/product3/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "name": "Metallic Earings",
+        "price": {
+            "oldPrice": 55.00,
+            "newPrice": 48.00
+        },
+        "img": {
+            "singleImage": "img/products/product4/1.jpg",
+            "thumbs": [
+                "img/products/product4/1.jpg",
+                "img/products/product4/2.jpg",
+                "img/products/product4/3.jpg"
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "name": "Crochet tops",
+        "price": {
+            "oldPrice": 78.00,
+            "newPrice": 48.00
+        },
+        "img": {
+            "singleImage": "img/products/product5/1.jpg",
+            "thumbs": [
+                "img/products/product5/1.jpg",
+                "img/products/product5/2.jpg"
+            ]
+        }
+    }
+]

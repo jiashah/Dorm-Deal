@@ -50,6 +50,23 @@ function productImageRoute() {
     })
 }
 
+function chatRoute() {
+    const chatLinks = document.getElementsByClassName("chat-link");
+    Array.from(chatLinks).forEach((chatLink) => {
+        chatLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            const id = e.currentTarget.getAttribute("data-id");
+            if (id) {
+                window.location.href = `frontend/index.html?productId=${id}`;
+            } else {
+                alert("⚠️ No product ID found.");
+            }
+        });
+    });
+}
+
+
+
 async function productFunc(products) {
 
 
@@ -93,15 +110,11 @@ async function productFunc(products) {
                         <button class="add-to-cart" data-id="${product.id}">
                         <i class="bi bi-basket-fill"></i>
                         </button>
-                        <button>
-                        <i class="bi bi-heart-fill"></i>
-                        </button>
                         <a href="#" class="product-link" data-id="${product.id}">
                         <i class="bi bi-eye-fill"></i>
-                        </a>
-                        <a href="#">
-                        <i class="bi bi-share-fill"></i>
-                        </a>
+                        <a href="#" class="chat-link" data-id="${product.id}">
+  <i class="bi bi-chat-dots-fill"></i>
+</a>
                     </div>
                     </div>
             </li>
@@ -121,6 +134,8 @@ async function productFunc(products) {
     productRoute()
 
     productImageRoute()
+
+    chatRoute();
 
 
 }

@@ -15,58 +15,63 @@
 
 <body>
   <!-- ! header start -->
-  <header>
-    <div class="global-notification">
-    </div>
-    <div class="header-row">
-      <div class="container">
-        <div class="header-wrapper">
-          <div class="header-mobile">
-            <i class="bi bi-list" id="btn-menu"></i>
-          </div>
-          <div class="header-left">
-            <a href="/" class="logo">Dorm Deal</a>
-          </div>
-          <div class="header-center" id="sidebar">
-            <nav class="navigation">
-              <ul class="menu-list">
-                <li class="menu-list-item">
-                  <a href="/" class="menu-link">Home</a>
-                </li>
-                <li class="menu-list-item">
-                  <a href="shop.html" class="menu-link">Shop</a>
-                </li>
-                <li class="menu-list-item">
-                  <a href="contact.html" class="menu-link">Contact</a>
-                </li>
-              </ul>
-            </nav>
-            <i class="bi-x-circle" id="close-sidebar"></i>
-          </div>
-          <div class="header-right">
-            <div class="header-right-links">
-              <a href="account.html">
-                <i class="bi bi-person"></i>
+  <div id="welcomeMessage" style="display:none; font-weight: bold; color: green;"></div>
+
+ <header>
+  <div class="global-notification">
+  </div>
+  <div class="header-row">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="header-mobile">
+          <i class="bi bi-list" id="btn-menu"></i>
+        </div>
+        <div class="header-left">
+          <a href="/" class="logo">Dorm Deal</a>
+        </div>
+        <div class="header-center" id="sidebar">
+          <nav class="navigation">
+            <ul class="menu-list">
+              <li class="menu-list-item">
+                <a href="/" class="menu-link">Home</a>
+              </li>
+              <li class="menu-list-item">
+                <a href="shop.html" class="menu-link">Shop</a>
+              </li>
+              <li class="menu-list-item">
+                <a href="contact.html" class="menu-link">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <i class="bi-x-circle" id="close-sidebar"></i>
+        </div>
+        <div class="header-right">
+          <div class="header-right-links">
+            <a href="account.html">
+              <i class="bi bi-person"></i>
+            </a>
+            <button class="search-button">
+              <i class="bi bi-search"></i>
+            </button>
+            <a href="#">
+              <i class="bi bi-heart"></i>
+            </a>
+            <div class="header-cart">
+              <a href="cart.html" class="header-cart-link">
+                <i class="bi bi-bag"></i>
+                <span class="header-cart-count">0</span>
               </a>
-              <button class="search-button">
-                <i class="bi bi-search"></i>
-              </button>
-              <a href="#">
-                <i class="bi bi-heart"></i>
-              </a>
-              <div class="header-cart">
-                <a href="cart.html" class="header-cart-link">
-                  <i class="bi bi-bag"></i>
-                  <span class="header-cart-count">0</span>
-                </a>
-              </div>
             </div>
+            <a id="loginLogoutLink" href="account.html">Login</a>
+
           </div>
         </div>
       </div>
     </div>
-  </header>
-  <!-- ! header end -->
+    <div id="userNameHeader" class="user-name-header"></div>
+  </div>
+</header>
+<!-- ! header end -->
 
   <!-- ! modal search start -->
   <div class="modal-search">
@@ -326,11 +331,95 @@
   </section>
   <!-- Footer End -->
 
+
   <!-- scripts start -->
   <script src="js/main.js" type="module"></script>
   <script src="js/slider.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
   <script src="js/glide.js" type="module"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"; // Import onAuthStateChanged
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEx5Xq6pe7TT-T2_ucDFDklpmn_BrWWbE",
+      authDomain: "logindormdeal.firebaseapp.com",
+      projectId: "logindormdeal",
+      storageBucket: "logindormdeal.appspot.com",
+      messagingSenderId: "824066337396",
+      appId: "1:824066337396:web:2059fed503f4e7f1aa3f21"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore();
+    const auth = getAuth(app); // Get auth instance
+
+    const userId = localStorage.getItem('loggedInUserId');
+    const headerName = document.getElementById('userNameHeader');
+    const welcomeMsg = document.getElementById('welcomeMessage');
+    const loginLogoutLink = document.getElementById('loginLogoutLink');
+
+    // Function to update the login/logout link based on authentication state
+    function updateLoginLogoutLink(user) {
+        if (user) {
+            // User is signed in
+            loginLogoutLink.textContent = 'Logout';
+            loginLogoutLink.href = '#'; // Prevent navigation
+            loginLogoutLink.addEventListener('click', logout); // Add logout function
+        } else {
+            // User is signed out
+            loginLogoutLink.textContent = 'Login';
+            loginLogoutLink.href = 'account.html'; // Link to login page
+            loginLogoutLink.removeEventListener('click', logout); // Remove logout function
+        }
+    }
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+        updateLoginLogoutLink(user);
+    });
+
+    // Logout Function
+    function logout(event) {
+      event.preventDefault();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            localStorage.removeItem('loggedInUserId');
+            alert("Logged out successfully");
+            window.location.href = 'account.html'; // Redirect to login page
+        }).catch((error) => {
+            // An error happened.
+            console.error("Logout Error:", error);
+            alert("Logout failed: " + error.message);
+        });
+    }
+    if (userId) {
+      const docRef = doc(db, "users", userId);
+      getDoc(docRef).then((docSnap) => {
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          const name = userData.firstName;
+
+          if (headerName) {
+            headerName.textContent = `${name}`;
+          }
+
+          // Show success message only once after login
+          if (localStorage.getItem('loginSuccess') === 'true') {
+            if (welcomeMsg) {
+              welcomeMsg.textContent = `✅ Logged in successfully as ${name}`;
+              welcomeMsg.style.color = 'green';
+              welcomeMsg.style.display = 'block';
+              welcomeMsg.style.animation = 'fadeOut 7s forwards';
+            }
+            localStorage.removeItem('loginSuccess');
+          }
+        }
+      });
+    }
+
+  </script>
   <!-- scripts end -->
 
 </body>

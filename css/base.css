@@ -102,7 +102,28 @@ button {
     cursor: pointer;
     padding: 0 40px;
 }
-
+#loginLogoutLink {
+    background-color: #1367ef; /* Red */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+#loginLogoutLink:hover {
+    background-color: #da190b; /* Darker red */
+  }
+#userNameHeader {
+    margin-right: 10px; /* Adjust the value (e.g., 10px, 20px, etc.) to your preference */
+  }
+  
 textarea {
     overflow: auto;
 }
@@ -168,3 +189,176 @@ input[type="number"]::-webkit-inner-spin-button {
         max-width: 350px;
     }
 }
+.login-wrapper * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 50;
+    padding: 0;
+}
+
+.login-wrapper {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    padding: 40px 10px;
+    min-height: 100vh;
+}
+
+.login-wrapper .container {
+    background: #fff;
+    width: 450px;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9);
+}
+
+.login-wrapper form {
+    margin: 0 2rem;
+}
+
+.login-wrapper .form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.login-wrapper input {
+    color: inherit;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #757575;
+    padding-left: 1.5rem;
+    font-size: 15px;
+}
+
+.login-wrapper .input-group {
+    padding: 1% 0;
+    position: relative;
+}
+
+.login-wrapper .input-group i {
+    position: absolute;
+    color: black;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
+.login-wrapper input:focus {
+    background-color: transparent;
+    outline: transparent;
+    border-bottom: 2px solid hsl(327, 90%, 28%);
+}
+
+.login-wrapper input::placeholder {
+    color: transparent;
+}
+
+.login-wrapper label {
+    color: #757575;
+    position: relative;
+    left: 1.2em;
+    top: -1.3em;
+    cursor: auto;
+    transition: 0.3s ease all;
+}
+
+.login-wrapper input:focus ~ label,
+.login-wrapper input:not(:placeholder-shown) ~ label {
+    top: -3em;
+    color: hsl(327, 90%, 28%);
+    font-size: 15px;
+}
+
+.login-wrapper .recover {
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.login-wrapper .recover a {
+    text-decoration: none;
+    color: #1367ef;
+}
+
+.login-wrapper .recover a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+.login-wrapper button {
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background: #1367ef;
+    color: white;
+    cursor: pointer;
+    transition: 0.9s;
+}
+
+.login-wrapper button:hover {
+    background: #07001f;
+}
+
+.login-wrapper .or {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.login-wrapper .icons {
+    text-align: center;
+}
+
+
+.login-wrapper .icons i:hover {
+    background: #07001f;
+    font-size: 1.6rem;
+    border: 2px solid#1367ef;
+}
+
+.login-wrapper .links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 4rem;
+    margin-top: 0.9rem;
+    font-weight: bold;
+}
+
+.login-wrapper #signUpButton,
+.login-wrapper #signInButton {
+    color: #1367ef;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.login-wrapper #signUpButton:hover,
+.login-wrapper #signInButton:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+.login-wrapper .messageDiv {
+    background-color: #FF6F61;  /* Bright Coral */
+    color: #333333;             /* Dark Charcoal */
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeOut 7s forwards;
+}
+
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+  }
+  

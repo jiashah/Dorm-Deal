@@ -60,10 +60,13 @@
                   <span class="header-cart-count">0</span>
                 </a>
               </div>
+              <a id="loginLogoutLink" href="account.html">Login</a>
+
             </div>
           </div>
         </div>
       </div>
+      <div id="userNameHeader" class="user-name-header"></div>
     </div>
   </header>
   <!-- ! header end -->
@@ -108,54 +111,54 @@
   <!-- ! modal dialog end -->
 
 
-  <!-- ! category start -->
-  <section class="categories">
-    <div class="container">
-      <div class="section-title">
-        <h2>All Categories</h2>
-      </div>
-
-      <ul class="category-list">
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories1.png" alt="" class="category-image" />
-            <span class="category-title">Food</span>
-          </a>
-        </li>
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories2.png" alt="" class="category-image" />
-            <span class="category-title">Room Decor</span>
-          </a>
-        </li>
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories3.png" alt="" class="category-image" />
-            <span class="category-title">Electronics</span>
-          </a>
-        </li>
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories4.png" alt="" class="category-image" />
-            <span class="category-title">Jewelery</span>
-          </a>
-        </li>
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories5.png" alt="" class="category-image" />
-            <span class="category-title">DIY Art Items</span>
-          </a>
-        </li>
-        <li class="category-item">
-          <a href="#">
-            <img src="img/categories/categories6.png" alt="" class="category-image" />
-            <span class="category-title">Clothes</span>
-          </a>
-        </li>
-      </ul>
+ <!-- ! category start -->
+ <section class="categories">
+  <div class="container">
+    <div class="section-title">
+      <h2>All Categories</h2>
     </div>
-  </section>
-  <!-- ! category end-->
+
+    <ul class="category-list">
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories1.jpg" alt="" class="category-image" />
+          <span class="category-title">Food</span>
+        </a>
+      </li>
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories2.jpg" alt="" class="category-image" />
+          <span class="category-title">Room Decor</span>
+        </a>
+      </li>
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories3.png" alt="" class="category-image" />
+          <span class="category-title">Electronics</span>
+        </a>
+      </li>
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories4.png" alt="" class="category-image" />
+          <span class="category-title">Jewelery</span>
+        </a>
+      </li>
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories5.jpg" alt="" class="category-image" />
+          <span class="category-title">DIY Art Items</span>
+        </a>
+      </li>
+      <li class="category-item">
+        <a href="#">
+          <img src="img/categories/categories6.png" alt="" class="category-image" />
+          <span class="category-title">Clothes</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+<!-- ! category end-->
 
   <!-- ! product start -->
   <section class="products">
@@ -333,6 +336,91 @@
   <script src="js/main.js" type="module"></script>
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
   <script src="js/glide.js" type="module"></script>
+  <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"; // Import onAuthStateChanged
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEx5Xq6pe7TT-T2_ucDFDklpmn_BrWWbE",
+      authDomain: "logindormdeal.firebaseapp.com",
+      projectId: "logindormdeal",
+      storageBucket: "logindormdeal.appspot.com",
+      messagingSenderId: "824066337396",
+      appId: "1:824066337396:web:2059fed503f4e7f1aa3f21"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore();
+    const auth = getAuth(app); // Get auth instance
+
+    const userId = localStorage.getItem('loggedInUserId');
+    const headerName = document.getElementById('userNameHeader');
+    const welcomeMsg = document.getElementById('welcomeMessage');
+    const loginLogoutLink = document.getElementById('loginLogoutLink');
+
+    // Function to update the login/logout link based on authentication state
+    function updateLoginLogoutLink(user) {
+        if (user) {
+            // User is signed in
+            loginLogoutLink.textContent = 'Logout';
+            loginLogoutLink.href = '#'; // Prevent navigation
+            loginLogoutLink.addEventListener('click', logout); // Add logout function
+        } else {
+            // User is signed out
+            loginLogoutLink.textContent = 'Login';
+            loginLogoutLink.href = 'account.html'; // Link to login page
+            loginLogoutLink.removeEventListener('click', logout); // Remove logout function
+        }
+    }
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+        updateLoginLogoutLink(user);
+    });
+
+    // Logout Function
+    function logout(event) {
+      event.preventDefault();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            localStorage.removeItem('loggedInUserId');
+            alert("Logged out successfully");
+            window.location.href = 'account.html'; // Redirect to login page
+        }).catch((error) => {
+            // An error happened.
+            console.error("Logout Error:", error);
+            alert("Logout failed: " + error.message);
+        });
+    }
+    if (userId) {
+      const docRef = doc(db, "users", userId);
+      getDoc(docRef).then((docSnap) => {
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          const name = userData.firstName;
+
+          if (headerName) {
+            headerName.textContent = `${name}`;
+          }
+
+          // Show success message only once after login
+          if (localStorage.getItem('loginSuccess') === 'true') {
+            if (welcomeMsg) {
+              welcomeMsg.textContent = `✅ Logged in successfully as ${name}`;
+              welcomeMsg.style.color = 'green';
+              welcomeMsg.style.display = 'block';
+              welcomeMsg.style.animation = 'fadeOut 7s forwards';
+            }
+            localStorage.removeItem('loginSuccess');
+          }
+        }
+      });
+    }
+
+
+  </script>
+  
   <!-- scripts end -->
 </body>
 

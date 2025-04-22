@@ -5,9 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- !bootstrap icon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
-  <!-- !Glide.js Css CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" />
   <link rel="stylesheet" href="css/main.css" />
   <title>E-Commerce | Home</title>
@@ -51,9 +49,6 @@
               <button class="search-button">
                 <i class="bi bi-search"></i>
               </button>
-              <a href="#">
-                <i class="bi bi-heart"></i>
-              </a>
               <div class="header-cart">
                 <a href="cart.html" class="header-cart-link">
                   <i class="bi bi-bag"></i>
@@ -75,10 +70,7 @@
   <!-- ! modal search start -->
   <div class="modal-search">
     <div class="modal-wrapper">
-      <h3 class="modal-title">Search for products</h3>
-      <p class="modal-text">
-        Start typing to see products you are looking for.
-      </p>
+      <h3 class="modal-title">Search products</h3>
       <div class="search">
         <input type="text" placeholder="Search a product" />
         <button><i class="bi bi-search"></i></button>
@@ -97,69 +89,9 @@
   </div>
   <!-- ! modal search end -->
 
-  <!-- ! modal dialog start -->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-close">
-        <i class="bi bi-x"></i>
-      </div>
-      <div class="modal-image">
-        <img src="img/modal-dialog.jpg" alt="modal">
-      </div>
-    </div>
-  </div>
-  <!-- ! modal dialog end -->
 
 
- <!-- ! category start -->
- <section class="categories">
-  <div class="container">
-    <div class="section-title">
-      <h2>All Categories</h2>
-    </div>
-
-    <ul class="category-list">
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories1.jpg" alt="" class="category-image" />
-          <span class="category-title">Food</span>
-        </a>
-      </li>
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories2.jpg" alt="" class="category-image" />
-          <span class="category-title">Room Decor</span>
-        </a>
-      </li>
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories3.png" alt="" class="category-image" />
-          <span class="category-title">Electronics</span>
-        </a>
-      </li>
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories4.png" alt="" class="category-image" />
-          <span class="category-title">Jewelery</span>
-        </a>
-      </li>
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories5.jpg" alt="" class="category-image" />
-          <span class="category-title">DIY Art Items</span>
-        </a>
-      </li>
-      <li class="category-item">
-        <a href="#">
-          <img src="img/categories/categories6.png" alt="" class="category-image" />
-          <span class="category-title">Clothes</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<!-- ! category end-->
-
+ 
   <!-- ! product start -->
   <section class="products">
     <div class="container">
@@ -320,10 +252,6 @@
                 <input type="text" placeholder="enter your email address" />
                 <button class="btn">Subscribe</button>
               </form>
-              <p class="privacy-text">
-                By subscribing you agree to our
-                <a href="#">Terms & Conditions and Privacy & Cookies Policy.</a>
-              </p>
             </div>
           </div>
         </div>
@@ -334,10 +262,11 @@
 
   <!-- scripts start -->
   <script src="js/main.js" type="module"></script>
+  <script src="js/slider.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
   <script src="js/glide.js" type="module"></script>
   <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
     import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"; // Import onAuthStateChanged
 
@@ -352,46 +281,41 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore();
-    const auth = getAuth(app); // Get auth instance
+    const auth = getAuth(app); 
 
     const userId = localStorage.getItem('loggedInUserId');
     const headerName = document.getElementById('userNameHeader');
     const welcomeMsg = document.getElementById('welcomeMessage');
     const loginLogoutLink = document.getElementById('loginLogoutLink');
 
-    // Function to update the login/logout link based on authentication state
     function updateLoginLogoutLink(user) {
-        if (user) {
-            // User is signed in
-            loginLogoutLink.textContent = 'Logout';
-            loginLogoutLink.href = '#'; // Prevent navigation
-            loginLogoutLink.addEventListener('click', logout); // Add logout function
-        } else {
-            // User is signed out
-            loginLogoutLink.textContent = 'Login';
-            loginLogoutLink.href = 'account.html'; // Link to login page
-            loginLogoutLink.removeEventListener('click', logout); // Remove logout function
-        }
+      if (user) {
+  
+        loginLogoutLink.textContent = 'Logout';
+        loginLogoutLink.href = '#'; 
+        loginLogoutLink.addEventListener('click', logout); 
+      } else {
+        loginLogoutLink.textContent = 'Login';
+        loginLogoutLink.href = 'account.html'; 
+        loginLogoutLink.removeEventListener('click', logout);
+      }
     }
 
-    // Check authentication state
+  
     onAuthStateChanged(auth, (user) => {
-        updateLoginLogoutLink(user);
+      updateLoginLogoutLink(user);
     });
 
-    // Logout Function
     function logout(event) {
       event.preventDefault();
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            localStorage.removeItem('loggedInUserId');
-            alert("Logged out successfully");
-            window.location.href = 'account.html'; // Redirect to login page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Logout Error:", error);
-            alert("Logout failed: " + error.message);
-        });
+      signOut(auth).then(() => {
+        localStorage.removeItem('loggedInUserId');
+        alert("Logged out successfully");
+        window.location.href = 'account.html';
+      }).catch((error) => {
+        console.error("Logout Error:", error);
+        alert("Logout failed: " + error.message);
+      });
     }
     if (userId) {
       const docRef = doc(db, "users", userId);
@@ -404,10 +328,9 @@
             headerName.textContent = `${name}`;
           }
 
-          // Show success message only once after login
           if (localStorage.getItem('loginSuccess') === 'true') {
             if (welcomeMsg) {
-              welcomeMsg.textContent = `✅ Logged in successfully as ${name}`;
+              welcomeMsg.textContent = `Logged in successfully as ${name}`;
               welcomeMsg.style.color = 'green';
               welcomeMsg.style.display = 'block';
               welcomeMsg.style.animation = 'fadeOut 7s forwards';
@@ -418,9 +341,7 @@
       });
     }
 
-
   </script>
-  
   <!-- scripts end -->
 </body>
 

@@ -3,11 +3,14 @@ import {getAuth, onAuthStateChanged, signOut} from "https://www.gstatic.com/fire
 import{getFirestore, getDoc, doc} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js"
 
 const firebaseConfig = {
-    //YOUR COPIED FIREBASE PART SHOULD BE HERE
- //WATCH THIS VIDEO TO LEARN WHAT TO PUT HERE   https://youtu.be/_Xczf06n6x0
+    apiKey: "AIzaSyAEx5Xq6pe7TT-T2_ucDFDklpmn_BrWWbE",
+    authDomain: "logindormdeal.firebaseapp.com",
+    projectId: "logindormdeal",
+    storageBucket: "logindormdeal.firebaseapp.com",
+    messagingSenderId: "824066337396",
+    appId: "1:824066337396:web:2059fed503f4e7f1aa3f21"
   };
  
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
   const auth=getAuth();

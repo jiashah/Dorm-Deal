@@ -10,27 +10,25 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Middleware
 app.use(cors({
-  origin: 'http://127.0.0.1:5501', // Allow requests from frontend (port 5501)
+  origin: 'http://127.0.0.1:5501', 
   methods: 'GET,POST',
   allowedHeaders: 'Content-Type'
 }));
 app.use(express.json());
 
-// MongoDB connection
 mongoose.connect("mongodb://localhost:27017/chat", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// Serve frontend static files
+
 const frontendPath = path.join(__dirname, "../frontend");
 app.use(express.static(frontendPath));
 
-// API: Get messages for a product
+
 app.get("/api/messages/:productId", async (req, res) => {
   try {
     const messages = await Message.find({ productId: req.params.productId }).sort({ timestamp: 1 });
@@ -41,7 +39,7 @@ app.get("/api/messages/:productId", async (req, res) => {
   }
 });
 
-// API: Post a new message
+
 app.post("/api/messages", async (req, res) => {
   const { productId, username, message } = req.body;
   if (!productId || !username || !message) {
@@ -58,13 +56,13 @@ app.post("/api/messages", async (req, res) => {
   }
 });
 
-// Serve index.html explicitly
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-// Start server
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });

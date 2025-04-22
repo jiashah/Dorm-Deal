@@ -21,23 +21,21 @@ const products = localStorage.getItem("products")
 
 const findProduct = products.find((item) => item.id === Number(productId))
 
-/* product title */
 const productTitle = document.querySelector(".product-title")
 productTitle.innerHTML = findProduct.name
 
 
-/* product price */
 const productOldPrice = document.querySelector(".old-price")
-productOldPrice.innerHTML = `$${findProduct.price.oldPrice.toFixed(2)}`
+productOldPrice.innerHTML = `₹${findProduct.price.oldPrice.toFixed(2)}`
 
 const productNewPrice = document.querySelector(".new-price")
-productNewPrice.innerHTML = `$${findProduct.price.newPrice.toFixed(2)}`
+productNewPrice.innerHTML = `₹${findProduct.price.newPrice.toFixed(2)}`
 
-/* product gallery */
+
 const singleImage = document.getElementById("single-image")
 singleImage.src = findProduct.img.singleImage
 
-/* gallery thumbs */
+
 
 const galleryThumbs = document.querySelector(".gallery-thumbs")
 let result = ""
@@ -55,7 +53,7 @@ galleryThumbs.innerHTML = result
 thumbsActiveFunc()
 product3()
 
-/* thumbs active */
+
 const productThumbs = document.querySelectorAll(".product-thumb .glide__slide img")
 productThumbs[0].classList.add("active")
 

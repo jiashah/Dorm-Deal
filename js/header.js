@@ -14,13 +14,13 @@ function sidebarFunc() {
     })
 
 
-    /* click outside start */
+    
     document.addEventListener("click", (event) => {
         if (!event.composedPath().includes(sidebar) && !event.composedPath().includes(btnOpenSidebar)) {
             sidebar.style.left = "-100%"
         }
     })
-    /* click outside end */
+    
 }
 
 function searchModalFunc() {

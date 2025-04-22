@@ -49,9 +49,6 @@
                         <button class="search-button">
                             <i class="bi bi-search"></i>
                         </button>
-                        <a href="#">
-                            <i class="bi bi-heart"></i>
-                        </a>
                         <div class="header-cart">
                             <a href="cart.html" class="header-cart-link">
                                 <i class="bi bi-bag"></i>
@@ -118,8 +115,8 @@
 
    
 
-   <!-- Footer Section -->
-   <section class="footer">
+  <!-- Footer Section -->
+  <section class="footer">
     <div class="subscribe-contact-row">
       <div class="container">
         <div class="subscribe-wrapper">
@@ -134,10 +131,6 @@
                 <input type="text" placeholder="enter your email address" />
                 <button class="btn">Subscribe</button>
               </form>
-              <p class="privacy-text">
-                By subscribing you agree to our
-                <a href="#">Terms & Conditions and Privacy & Cookies Policy.</a>
-              </p>
             </div>
           </div>
         </div>
@@ -147,10 +140,13 @@
   <!-- Footer End -->
 
 
-    <!-- scripts start -->
-    <script src="js/main.js" type="module"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+   <!-- scripts start -->
+  <script src="js/main.js" type="module"></script>
+  <script src="js/slider.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+  <script src="js/glide.js" type="module"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
     import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"; // Import onAuthStateChanged
 
@@ -165,46 +161,41 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore();
-    const auth = getAuth(app); // Get auth instance
+    const auth = getAuth(app); 
 
     const userId = localStorage.getItem('loggedInUserId');
     const headerName = document.getElementById('userNameHeader');
     const welcomeMsg = document.getElementById('welcomeMessage');
     const loginLogoutLink = document.getElementById('loginLogoutLink');
 
-    // Function to update the login/logout link based on authentication state
     function updateLoginLogoutLink(user) {
-        if (user) {
-            // User is signed in
-            loginLogoutLink.textContent = 'Logout';
-            loginLogoutLink.href = '#'; // Prevent navigation
-            loginLogoutLink.addEventListener('click', logout); // Add logout function
-        } else {
-            // User is signed out
-            loginLogoutLink.textContent = 'Login';
-            loginLogoutLink.href = 'account.html'; // Link to login page
-            loginLogoutLink.removeEventListener('click', logout); // Remove logout function
-        }
+      if (user) {
+  
+        loginLogoutLink.textContent = 'Logout';
+        loginLogoutLink.href = '#'; 
+        loginLogoutLink.addEventListener('click', logout); 
+      } else {
+        loginLogoutLink.textContent = 'Login';
+        loginLogoutLink.href = 'account.html'; 
+        loginLogoutLink.removeEventListener('click', logout);
+      }
     }
 
-    // Check authentication state
+  
     onAuthStateChanged(auth, (user) => {
-        updateLoginLogoutLink(user);
+      updateLoginLogoutLink(user);
     });
 
-    // Logout Function
     function logout(event) {
       event.preventDefault();
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            localStorage.removeItem('loggedInUserId');
-            alert("Logged out successfully");
-            window.location.href = 'account.html'; // Redirect to login page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Logout Error:", error);
-            alert("Logout failed: " + error.message);
-        });
+      signOut(auth).then(() => {
+        localStorage.removeItem('loggedInUserId');
+        alert("Logged out successfully");
+        window.location.href = 'account.html';
+      }).catch((error) => {
+        console.error("Logout Error:", error);
+        alert("Logout failed: " + error.message);
+      });
     }
     if (userId) {
       const docRef = doc(db, "users", userId);
@@ -217,7 +208,6 @@
             headerName.textContent = `${name}`;
           }
 
-          // Show success message only once after login
           if (localStorage.getItem('loginSuccess') === 'true') {
             if (welcomeMsg) {
               welcomeMsg.textContent = `✅ Logged in successfully as ${name}`;
@@ -231,8 +221,8 @@
       });
     }
 
-      </script>
-    <!-- scripts end -->
+  </script>
+  <!-- scripts end -->
 </body>
 
 </html>

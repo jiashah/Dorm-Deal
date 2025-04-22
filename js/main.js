@@ -6,22 +6,18 @@ import searchFunc from "./search.js"
 
 (async function () {
 
-    const products = await fetch("js/data.json") //get data
-    const data = await products.json() // to json
+    const products = await fetch("js/data.json")
+    const data = await products.json()
 
 
-    data ? localStorage.setItem("products", JSON.stringify(data)) : [] // json to string
+    data ? localStorage.setItem("products", JSON.stringify(data)) : []
     productFunc(data)
     searchFunc(data)
 
 }
 )()
 
-//! add product to localstorage end
 
-
-
-//! add cartItem to localstorage start
 
 const cartItem = document.querySelector(".header-cart-count")
 

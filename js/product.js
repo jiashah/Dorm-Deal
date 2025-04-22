@@ -59,7 +59,7 @@ function chatRoute() {
             if (id) {
                 window.location.href = `frontend/index.html?productId=${id}`;
             } else {
-                alert("⚠️ No product ID found.");
+                alert("No product ID found.");
             }
         });
     });

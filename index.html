@@ -17,69 +17,63 @@
   <!-- ! header start -->
   <div id="welcomeMessage" style="display:none; font-weight: bold; color: green;"></div>
 
- <header>
-  <div class="global-notification">
-  </div>
-  <div class="header-row">
-    <div class="container">
-      <div class="header-wrapper">
-        <div class="header-mobile">
-          <i class="bi bi-list" id="btn-menu"></i>
-        </div>
-        <div class="header-left">
-          <a href="/" class="logo">Dorm Deal</a>
-        </div>
-        <div class="header-center" id="sidebar">
-          <nav class="navigation">
-            <ul class="menu-list">
-              <li class="menu-list-item">
-                <a href="/" class="menu-link">Home</a>
-              </li>
-              <li class="menu-list-item">
-                <a href="shop.html" class="menu-link">Shop</a>
-              </li>
-              <li class="menu-list-item">
-                <a href="contact.html" class="menu-link">Contact</a>
-              </li>
-            </ul>
-          </nav>
-          <i class="bi-x-circle" id="close-sidebar"></i>
-        </div>
-        <div class="header-right">
-          <div class="header-right-links">
-            <a href="account.html">
-              <i class="bi bi-person"></i>
-            </a>
-            <button class="search-button">
-              <i class="bi bi-search"></i>
-            </button>
-            <a href="#">
-              <i class="bi bi-heart"></i>
-            </a>
-            <div class="header-cart">
-              <a href="cart.html" class="header-cart-link">
-                <i class="bi bi-bag"></i>
-                <span class="header-cart-count">0</span>
+  <header>
+    <div class="global-notification">
+    </div>
+    <div class="header-row">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="header-mobile">
+            <i class="bi bi-list" id="btn-menu"></i>
+          </div>
+          <div class="header-left">
+            <a href="/" class="logo">Dorm Deal</a>
+          </div>
+          <div class="header-center" id="sidebar">
+            <nav class="navigation">
+              <ul class="menu-list">
+                <li class="menu-list-item">
+                  <a href="/" class="menu-link">Home</a>
+                </li>
+                <li class="menu-list-item">
+                  <a href="shop.html" class="menu-link">Shop</a>
+                </li>
+                <li class="menu-list-item">
+                  <a href="contact.html" class="menu-link">Contact</a>
+                </li>
+              </ul>
+            </nav>
+            <i class="bi-x-circle" id="close-sidebar"></i>
+          </div>
+          <div class="header-right">
+            <div class="header-right-links">
+              <a href="account.html">
+                <i class="bi bi-person"></i>
               </a>
-            </div>
-            <a id="loginLogoutLink" href="account.html">Login</a>
+              <button class="search-button">
+                <i class="bi bi-search"></i>
+              </button>
+              <div class="header-cart">
+                <a href="cart.html" class="header-cart-link">
+                  <i class="bi bi-bag"></i>
+                  <span class="header-cart-count">0</span>
+                </a>
+              </div>
+              <a id="loginLogoutLink" href="account.html">Login</a>
 
+            </div>
           </div>
         </div>
       </div>
+      <div id="userNameHeader" class="user-name-header"></div>
     </div>
-    <div id="userNameHeader" class="user-name-header"></div>
-  </div>
-</header>
-<!-- ! header end -->
+  </header>
+  <!-- ! header end -->
 
   <!-- ! modal search start -->
   <div class="modal-search">
     <div class="modal-wrapper">
-      <h3 class="modal-title">Search for products</h3>
-      <p class="modal-text">
-        Start typing to see products you are looking for.
-      </p>
+      <h3 class="modal-title">Search products</h3>
       <div class="search">
         <input type="text" placeholder="Search a product" />
         <button><i class="bi bi-search"></i></button>
@@ -97,19 +91,6 @@
     </div>
   </div>
   <!-- ! modal search end -->
-
-  <!-- ! modal dialog start -->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-close">
-        <i class="bi bi-x"></i>
-      </div>
-      <div class="modal-image">
-        <img src="img/modal-dialog.jpg" alt="modal">
-      </div>
-    </div>
-  </div>
-  <!-- ! modal dialog end -->
 
 
   <!-- ! category start -->
@@ -319,10 +300,6 @@
                 <input type="text" placeholder="enter your email address" />
                 <button class="btn">Subscribe</button>
               </form>
-              <p class="privacy-text">
-                By subscribing you agree to our
-                <a href="#">Terms & Conditions and Privacy & Cookies Policy.</a>
-              </p>
             </div>
           </div>
         </div>
@@ -353,46 +330,41 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore();
-    const auth = getAuth(app); // Get auth instance
+    const auth = getAuth(app); 
 
     const userId = localStorage.getItem('loggedInUserId');
     const headerName = document.getElementById('userNameHeader');
     const welcomeMsg = document.getElementById('welcomeMessage');
     const loginLogoutLink = document.getElementById('loginLogoutLink');
 
-    // Function to update the login/logout link based on authentication state
     function updateLoginLogoutLink(user) {
-        if (user) {
-            // User is signed in
-            loginLogoutLink.textContent = 'Logout';
-            loginLogoutLink.href = '#'; // Prevent navigation
-            loginLogoutLink.addEventListener('click', logout); // Add logout function
-        } else {
-            // User is signed out
-            loginLogoutLink.textContent = 'Login';
-            loginLogoutLink.href = 'account.html'; // Link to login page
-            loginLogoutLink.removeEventListener('click', logout); // Remove logout function
-        }
+      if (user) {
+  
+        loginLogoutLink.textContent = 'Logout';
+        loginLogoutLink.href = '#'; 
+        loginLogoutLink.addEventListener('click', logout); 
+      } else {
+        loginLogoutLink.textContent = 'Login';
+        loginLogoutLink.href = 'account.html'; 
+        loginLogoutLink.removeEventListener('click', logout);
+      }
     }
 
-    // Check authentication state
+  
     onAuthStateChanged(auth, (user) => {
-        updateLoginLogoutLink(user);
+      updateLoginLogoutLink(user);
     });
 
-    // Logout Function
     function logout(event) {
       event.preventDefault();
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            localStorage.removeItem('loggedInUserId');
-            alert("Logged out successfully");
-            window.location.href = 'account.html'; // Redirect to login page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Logout Error:", error);
-            alert("Logout failed: " + error.message);
-        });
+      signOut(auth).then(() => {
+        localStorage.removeItem('loggedInUserId');
+        alert("Logged out successfully");
+        window.location.href = 'account.html';
+      }).catch((error) => {
+        console.error("Logout Error:", error);
+        alert("Logout failed: " + error.message);
+      });
     }
     if (userId) {
       const docRef = doc(db, "users", userId);
@@ -405,7 +377,6 @@
             headerName.textContent = `${name}`;
           }
 
-          // Show success message only once after login
           if (localStorage.getItem('loginSuccess') === 'true') {
             if (welcomeMsg) {
               welcomeMsg.textContent = `✅ Logged in successfully as ${name}`;

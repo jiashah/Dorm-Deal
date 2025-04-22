@@ -74,5 +74,65 @@
                 "img/products/product5/2.jpg"
             ]
         }
+    },
+    {
+        "id": 6,
+        "name": "Chocolates",
+        "price": {
+            "oldPrice": 200.00,
+            "newPrice": 150.00
+        },
+        "img": {
+            "singleImage": "img/products/product6/1.jpg",
+            "thumbs": [
+                "img/products/product6/1.jpg",
+                "img/products/product6/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "name": "Cake",
+        "price": {
+            "oldPrice": 600.00,
+            "newPrice": 500.00
+        },
+        "img": {
+            "singleImage": "img/products/product7/1.jpg",
+            "thumbs": [
+                "img/products/product7/1.jpg",
+                "img/products/product7/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "name": "Dream Catcher",
+        "price": {
+            "oldPrice": 300.00,
+            "newPrice": 250.00
+        },
+        "img": {
+            "singleImage": "img/products/product8/1.jpg",
+            "thumbs": [
+                "img/products/product8/1.jpg",
+                "img/products/product8/2.jpg"
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "name": "Key Chains",
+        "price": {
+            "oldPrice": 78.00,
+            "newPrice": 48.00
+        },
+        "img": {
+            "singleImage": "img/products/product9/1.jpg",
+            "thumbs": [
+                "img/products/product9/1.jpg",
+                "img/products/product9/2.jpg"
+            ]
+        }
     }
 ]

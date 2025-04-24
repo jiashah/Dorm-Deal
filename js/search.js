@@ -47,7 +47,7 @@ function searchFunc(data) {
             if (filtered == 0) {
                 searchWrapper.innerHTML = `
                                             <a href="/" class="result-item" style="justify-content: center">
-                                            😔Aradığınız Ürün Bulunamadı😔
+                                            result not found
                                             </a>
                                         `
             } else {

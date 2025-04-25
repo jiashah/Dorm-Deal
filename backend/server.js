@@ -18,20 +18,16 @@ app.use(cors({
   methods: 'GET,POST',
   allowedHeaders: 'Content-Type'
 }));
+
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-
+// Connect to MongoDB using environment variable
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-
 const frontendPath = path.join(__dirname, "../frontend");
 app.use(express.static(frontendPath));
-
 
 app.get("/api/messages/:productId", async (req, res) => {
   try {
@@ -42,7 +38,6 @@ app.get("/api/messages/:productId", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch messages" });
   }
 });
-
 
 app.post("/api/messages", async (req, res) => {
   const { productId, username, message } = req.body;
@@ -60,11 +55,9 @@ app.post("/api/messages", async (req, res) => {
   }
 });
 
-
 app.get("/", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
